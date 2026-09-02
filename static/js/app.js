@@ -72,6 +72,53 @@ const showToast = (message, type = "info") => {
 let chartPriceInstance = null;
 let chartShareInstance = null;
 
+const initEmptyCharts = () => {
+  const ctxPrice = document.getElementById("chartPrice").getContext("2d");
+  const ctxShare = document.getElementById("chartShare").getContext("2d");
+
+  if (chartPriceInstance) chartPriceInstance.destroy();
+  if (chartShareInstance) chartShareInstance.destroy();
+
+  chartPriceInstance = new Chart(ctxPrice, {
+    type: "bar",
+    data: {
+      labels: ["Amazon", "eBay", "Alibaba"],
+      datasets: [{
+        label: "Avg Price ($)",
+        data: [0, 0, 0],
+        backgroundColor: ["#F59E0B", "#3B82F6", "#F97316"],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: { beginAtZero: true, grid: { color: "#E4E4E7" }, ticks: { color: "#52525B" } },
+        x: { grid: { display: false }, ticks: { color: "#52525B" } }
+      }
+    }
+  });
+
+  chartShareInstance = new Chart(ctxShare, {
+    type: "doughnut",
+    data: {
+      labels: ["Amazon", "eBay", "Alibaba"],
+      datasets: [{
+        data: [0, 0, 0],
+        backgroundColor: ["#F59E0B", "#3B82F6", "#F97316"],
+        borderWidth: 2,
+        borderColor: "#ffffff"
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "right" } }
+    }
+  });
+};
+
 const renderCharts = (analytics) => {
   if (!analytics || !analytics.charts) return;
 
@@ -97,7 +144,7 @@ const renderCharts = (analytics) => {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        y: { grid: { color: "#E4E4E7" }, ticks: { color: "#52525B" } },
+        y: { beginAtZero: true, grid: { color: "#E4E4E7" }, ticks: { color: "#52525B" } },
         x: { grid: { display: false }, ticks: { color: "#52525B" } }
       }
     }
@@ -129,11 +176,17 @@ const fetchAnalytics = async () => {
     const res = await fetch("/api/analytics");
     const data = await res.json();
     if (data.ready) {
-      document.getElementById("statTotal").innerText = data.total_products;
-      document.getElementById("statAvg").innerText = `$${data.avg_price}`;
-      document.getElementById("statMin").innerText = `$${data.min_price}`;
-      document.getElementById("statMax").innerText = `$${data.max_price}`;
+      document.getElementById("statTotal").innerText = data.total_products || "0";
+      document.getElementById("statAvg").innerText = data.avg_price ? `$${data.avg_price}` : "$0.00";
+      document.getElementById("statMin").innerText = data.min_price ? `$${data.min_price}` : "$0.00";
+      document.getElementById("statMax").innerText = data.max_price ? `$${data.max_price}` : "$0.00";
       renderCharts(data);
+    } else {
+      document.getElementById("statTotal").innerText = "0";
+      document.getElementById("statAvg").innerText = "$0.00";
+      document.getElementById("statMin").innerText = "$0.00";
+      document.getElementById("statMax").innerText = "$0.00";
+      initEmptyCharts();
     }
   } catch (err) {
     console.error("Analytics fetch error:", err);
@@ -246,6 +299,7 @@ const startPolling = () => {
 // 6. INITIALIZATION
 document.addEventListener("DOMContentLoaded", () => {
   init3DScene();
+  initEmptyCharts();
   fetchAnalytics();
   fetchProducts();
 
