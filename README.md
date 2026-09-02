@@ -95,43 +95,49 @@ ScrapeSense/
     └── index.html           # Core glassmorphic operational dashboard
 ```
 
----
-
 ## Local Development Setup
 
 1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Asad-Farooq4421/ScrapeSense.git
+   cd ScrapeSense
+   ```
 
-```bash
-git clone https://github.com/Asad-Farooq4421/ScrapeSense.git
-cd ScrapeSense
-Create and activate a virtual environment:
+2. **Create and activate a virtual environment:**
+   ```powershell
+   # Windows (PowerShell)
+   python -m venv venv
+   .\venv\Scripts\Activate.ps1
+   ```
+   ```bash
+   # Linux/macOS
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-bash
-# Windows (PowerShell)
-python -m venv venv
-.\venv\Scripts\Activate.ps1
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# Linux/macOS
-python3 -m venv venv
-source venv/bin/activate
-Install dependencies:
+4. **Run the local development server:**
+   ```bash
+   uvicorn main:app --reload --host 127.0.0.1 --port 8000
+   ```
 
-bash
-pip install -r requirements.txt
-Run the local development server:
+5. Access the application at `[http://127.0.0.1:8000](http://127.0.0.1:8000)` and interactive Swagger docs at `[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)`.
 
-bash
-uvicorn main:app --reload --host 127.0.0.1 --port 8000
-Access the application at http://127.0.0.1:8000 and view interactive Swagger docs at http://127.0.0.1:8000/docs.
+---
 
-Cloud Deployment (Render)
+## Cloud Deployment (Render)
+
 This repository is pre-configured for automated builds on Render:
 
-Build Command: pip install -r requirements.txt
+* **Build Command:** `pip install -r requirements.txt`
+* **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
+* **Healthcheck Path:** `/` (Supports both `GET` and `HEAD` requests)
 
-Start Command: uvicorn main:app --host 0.0.0.0 --port $PORT
-
-Healthcheck Path: / (Supports both GET and HEAD requests)
+---
 
 ## Future Enhancements & Technical Roadmap
 
