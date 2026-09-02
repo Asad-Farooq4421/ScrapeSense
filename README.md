@@ -20,30 +20,34 @@ Built with an asynchronous FastAPI backend and a reactive glassmorphic frontend 
 ---
 
 ## Core System Architecture
-ScrapeSense Pipeline
+```text
+ScrapeSense Architecture Pipeline
 │
-├── Client Interface (Three.js 3D Viewport, Chart.js Visualizer, Vanilla-Tilt Cards)
-│ │
-│ ├── (Async Event Poll / JSON Payload)
-│ ▼
-├── FastAPI Application Gateway (Uvicorn / Gunicorn ASGI Workers)
-│ │
-│ ├── Dynamic Job Queue & Background Task Dispatcher
-│ │
-│ ├── Multi-Vendor Crawler Hub
-│ │ ├── eBay Parser Engine (Requests + BeautifulSoup4)
-│ │ ├── Amazon Catalog Extractor (Header Rotation & Heuristic Recovery)
-│ │ └── Alibaba Wholesale Scraper (Cross-Origin Data Normalizer)
-│ │
-│ ├── Heuristic Resilience Engine (Dynamic Fallback & Active Endpoint Router)
-│ │
-│ ├── Data Cleaning & Analytical Preprocessing (Pandas / NumPy / Regex)
-│ │
-│ └── Persistence & Export Suite (OpenPyXL / CSV Streams)
-
-text
-
----
+├── Client Viewport (Glassmorphic Interface)
+│   ├── Three.js 3D Background & Particle Viewport
+│   ├── Reactive Chart.js Price Visualizer
+│   └── Interactive Vanilla-Tilt.js Product Cards
+│
+├── API Gateway & Worker Layer (FastAPI / Uvicorn)
+│   ├── Async Polling & Live JSON State Handler
+│   └── In-Memory Background Task Dispatcher
+│
+├── Extraction & Scraping Engine (Multi-Vendor Hub)
+│   ├── eBay Extractor (BeautifulSoup4 + Clean URL Resolvers)
+│   ├── Amazon Crawler (User-Agent Pools + Heuristic Recovery)
+│   └── Alibaba Scraper (Wholesale Normalization Engine)
+│
+├── Reliability & Resilience Layer
+│   └── Heuristic Shield (Dynamic Fallback & Non-404 Endpoint Router)
+│
+├── Data Pipeline & Analytics
+│   ├── Regex Parser & Data Normalizer (Clean Pricing & Ratings)
+│   └── Pandas Statistical Modeling (Medians, Spreads, Outliers)
+│
+└── Export & Persistence Engine
+    ├── Streamed CSV Generator
+    └── OpenPyXL Styled Excel Exporter
+```
 
 ## Features
 
