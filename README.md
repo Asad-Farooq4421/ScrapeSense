@@ -1,119 +1,161 @@
-That **"Deconstruct & Extract" Emerald** palette on Zinc really gives it an enterprise, high-trust finish—clean, deliberate, and modern without looking like an off-the-shelf template.
-
-Here is the finalized, high-impact **`README.md`** tailored to **ScrapeSense** (with no version numbers, the updated palette, and portfolio-ready presentation for your instructor, GitHub, and LinkedIn).
-
----
-
-### Updated `README.md`
-
-Open `README.md` in your root folder and replace its contents:
+Here is the complete, production-ready `README.md` incorporating the full project architecture, live deployment badges, current resilience mechanisms, and a dedicated **Future Enhancements** roadmap highlighting the proxy-layer integration.
 
 ```markdown
-# ScrapeSense // Automated Market Intelligence Engine
+# ScrapeSense: Multi-Vendor E-Commerce Intelligence Engine
 
-An asynchronous, full-stack market intelligence and web extraction platform built with **FastAPI**, **BeautifulSoup4**, **Pandas**, **Three.js**, and **Chart.js**.
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Render](https://img.shields.io/badge/Render-Deployed-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://scrapesense-t7or.onrender.com)
+[![Status](https://img.shields.io/badge/Service-Active-10B981?style=for-the-badge)](https://scrapesense-t7or.onrender.com)
 
-Designed around the **"Deconstruct & Extract" Emerald** architecture—combining resilient data pipelines with a high-trust, responsive analytical dashboard.
+ScrapeSense is a full-stack, asynchronous multi-vendor market intelligence platform engineered to concurrently extract, clean, normalize, and analyze retail catalog data across **Amazon**, **eBay**, and **Alibaba**. 
 
----
-
-## Core Architecture & Features
-
-- **Automated Pagination & Polite Crawling:**
-  - Robust session management traversing up to 50 catalog pages (1,000 products).
-  - Configurable exponential backoff retries, request throttling, and detail-page resolution.
-- **Asynchronous Execution & State Management:**
-  - Background task worker decoupled from the HTTP request-response cycle.
-  - Live state polling tracking percentage completion, active page depth, and item counts in real time.
-- **High-Trust Analytical HUD:**
-  - Integrated 3D ambient particle system rendered via **Three.js**.
-  - Dynamic KPI metric surfaces with glare/physics perspective powered by **Vanilla-Tilt**.
-  - Reactive **Chart.js** visualizations mapping price tier frequencies and star rating distributions.
-  - Real-time catalog filtering by title and star tier without page refreshes.
-- **Enterprise Data Normalization:**
-  - Automated currency stripping to native floating points.
-  - Natural-language ratings mapped to discrete integers (`1`–`5`).
-  - Strict deduplication based on canonical product URLs.
-  - One-click direct streaming exports to **CSV** and **Excel (.xlsx)** formats.
-- **Interactive REST Documentation:**
-  - Native OpenAPI/Swagger specification accessible at `/docs`.
+Built with an asynchronous FastAPI backend and a reactive glassmorphic frontend rendered in the custom **"Deconstruct & Extract" Emerald** design system, ScrapeSense provides real-time market comparison, instant price distribution analytics, and structured dataset exports (CSV/XLSX).
 
 ---
 
-## Technical Stack
+## Live Links
 
-* **Backend & API:** Python 3.11+, FastAPI, Starlette, Uvicorn, Requests, BeautifulSoup4
-* **Data Engineering & Pipeline:** Pandas, NumPy, OpenPyXL, Matplotlib
-* **Client & UI Architecture:** HTML5, Modern Scaffolding CSS, JavaScript (ES6+)
-* **Interactive Graphics & Viz:** Three.js (WebGL), Chart.js, Vanilla-Tilt.js, FontAwesome
+* **Production URL:** [https://scrapesense-t7or.onrender.com](https://scrapesense-t7or.onrender.com)
+* **Interactive API Documentation:** [https://scrapesense-t7or.onrender.com/docs](https://scrapesense-t7or.onrender.com/docs)
+* **GitHub Repository:** [https://github.com/Asad-Farooq4421/ScrapeSense](https://github.com/Asad-Farooq4421/ScrapeSense)
 
 ---
 
-## Repository Layout
+## Core System Architecture
 
-```text
-EcommerceProductScraper/
+
+```
+
+ScrapeSense Pipeline
 │
-├── scraper/
-│   ├── crawler.py          # Session pooling, pagination loops & progress hooks
-│   ├── parser.py           # BeautifulSoup card extraction & deep product details
-│   ├── cleaner.py          # Regex cleaning, dtype casting & deduplication
-│   └── analyzer.py         # Summary statistics & Matplotlib graphic exports
-│
-├── static/
-│   ├── css/style.css       # Deconstruct Emerald & Zinc layout styling
-│   └── js/app.js           # Three.js 3D canvas, Chart.js engine & polling logic
-│
-├── templates/
-│   └── index.html          # Dynamic control console & data grid
-│
-├── data/                   # Internal caching layer
-├── output/                 # Exported datasets (CSV, Excel) & analytical charts
-├── notebooks/              # Jupyter notebook for exploratory data analysis
-├── main.py                 # Unified FastAPI application & execution entrypoint
-├── requirements.txt        # Production dependencies
-└── README.md
+├── Client Interface (Three.js 3D Viewport, Chart.js Visualizer, Vanilla-Tilt Cards)
+│       │
+│       ├── (Async Event Poll / JSON Payload)
+│       ▼
+├── FastAPI Application Gateway (Uvicorn / Gunicorn ASGI Workers)
+│       │
+│       ├── Dynamic Job Queue & Background Task Dispatcher
+│       │
+│       ├── Multi-Vendor Crawler Hub
+│       │     ├── eBay Parser Engine (Requests + BeautifulSoup4)
+│       │     ├── Amazon Catalog Extractor (Header Rotation & Heuristic Recovery)
+│       │     └── Alibaba Wholesale Scraper (Cross-Origin Data Normalizer)
+│       │
+│       ├── Heuristic Resilience Engine (Dynamic Fallback & Active Endpoint Router)
+│       │
+│       ├── Data Cleaning & Analytical Preprocessing (Pandas / NumPy / Regex)
+│       │
+│       └── Persistence & Export Suite (OpenPyXL / CSV Streams)
 
 ```
 
 ---
 
-## Getting Started
+## Features
 
-### 1. Environment Setup
+* **Concurrent Multi-Vendor Harvesting:** Concurrently queries multiple vendor catalogs using asynchronous thread pools and customized User-Agent rotations.
+* **Heuristic Resilience Shield:** Implements intelligent fallback routing to prevent service downtime and eliminate broken 404 links when commercial cloud datacenter IP ranges encounter anti-scraping walls (e.g., Akamai / Cloudflare).
+* **Automated Data Normalization:** Standardizes multi-currency pricing strings into clean floating-point numerics, formats ratings to uniform scales, and eliminates vendor tracking wrappers.
+* **Reactive Market Visualizations:** Embedded Chart.js analytical dashboards calculate real-time platform price averages, market spreads, and category distributions.
+* **Instant Export Pipelines:** Generates enterprise-ready `multi_vendor_products.csv` and styled `.xlsx` spreadsheets on demand directly from in-memory analytical states.
+* **Engineered Aesthetic:** Crafted with the "Deconstruct & Extract" Emerald palette (Zinc 50 background `#F4F4F5`, Zinc 900 text, and Emerald 500 accents `#10B981`) paired with interactive 3D particle systems powered by Three.js.
 
-```powershell
-# Clone or enter repository directory
-cd W:\Projects\EcommerceProductScraper
+---
 
-# Activate virtual environment
+## Tech Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Backend & ASGI** | Python 3.11+, FastAPI, Uvicorn, Gunicorn, Jinja2 |
+| **Extraction & Parsing** | Requests, BeautifulSoup4, Regex URL Sanitizers |
+| **Data Processing & Analytics** | Pandas, OpenPyXL, NumPy, Matplotlib |
+| **Frontend & Visualization** | Vanilla JavaScript (ES6+), HTML5, CSS3, Chart.js, Three.js, Vanilla-Tilt.js |
+| **Cloud Deployment** | Render Cloud Application Platform (Native Linux Web Services) |
+
+---
+
+## Project Structure
+
+```text
+ScrapeSense/
+├── main.py                  # FastAPI server, endpoints, and background job state
+├── requirements.txt         # Production dependencies
+├── .gitignore               # Ignored environments, logs, and artifacts
+├── README.md                # System documentation
+├── scraper/
+│   ├── __init__.py          # Module initialization
+│   ├── crawler.py           # Multi-platform scraping coordinator & resilience logic
+│   ├── parser.py            # DOM structure parsers for eBay, Amazon, and Alibaba
+│   ├── cleaner.py           # Regex-based currency and rating normalization
+│   └── analyzer.py          # Descriptive statistical modeling & metrics
+├── static/
+│   ├── css/
+│   │   └── style.css        # "Deconstruct & Extract" Emerald styling
+│   └── js/
+│       └── app.js           # Client UI state, Three.js engine, and Chart.js integration
+└── templates/
+    └── index.html           # Core glassmorphic operational dashboard
+
+```
+
+---
+
+## Local Development Setup
+
+1. **Clone the repository:**
+```bash
+git clone [https://github.com/Asad-Farooq4421/ScrapeSense.git](https://github.com/Asad-Farooq4421/ScrapeSense.git)
+cd ScrapeSense
+
+```
+
+
+2. **Create and activate a virtual environment:**
+```bash
+# Windows (PowerShell)
+python -m venv venv
 .\venv\Scripts\Activate.ps1
 
-# Install project dependencies
+# Linux/macOS
+python3 -m venv venv
+source venv/bin/activate
+
+```
+
+
+3. **Install dependencies:**
+```bash
 pip install -r requirements.txt
 
 ```
 
-### 2. Launch the Application
 
-```powershell
-python main.py
+4. **Run the local development server:**
+```bash
+uvicorn main:app --reload --host 127.0.0.1 --port 8000
 
 ```
 
-* **Interactive Dashboard:** `http://127.0.0.1:8000`
-* **Swagger API Docs:** `http://127.0.0.1:8000/docs`
+
+5. Access the application at `http://127.0.0.1:8000` and view interactive Swagger docs at `http://127.0.0.1:8000/docs`.
 
 ---
 
-## API Endpoints
+## Cloud Deployment (Render)
 
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| `GET` | `/` | Serves the interactive 3D web dashboard |
-| `POST` | `/api/scrape?pages={n}&fetch_details={bool}` | Queues an asynchronous scraping background job |
-| `GET` | `/api/status` | Real-time polling endpoint for job progress and console logs |
-| `GET` | `/api/products?search={q}&rating={n}` | Filtered catalog query |
-| `GET` | `/api/analytics` | Statistical aggregates and chart-ready distribution buckets |
-| `GET` | `/api/export/{csv|excel}` | Direct downloadable exports of the cleaned dataset |
+This repository is pre-configured for automated builds on Render:
 
+* **Build Command:** `pip install -r requirements.txt`
+* **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
+* **Healthcheck Path:** `/` (Supports both `GET` and `HEAD` requests)
+
+---
+
+## Future Enhancements & Technical Roadmap
+
+* **Residential Proxy & Anti-Bot Bypass Integration:** Integrate specialized scraping proxy layers (e.g., **ScraperAPI**, **ZenRows**, or **BrightData**) with automated CAPTCHA-solving upstream. This will enable direct residential IP rotation, allowing live cloud extraction on Render without triggering Cloudflare, Akamai, or DataDome perimeter challenges.
+* **Headless Browser Automation:** Incorporate Playwright / Camoufox worker pools for executing vendor single-page applications (SPAs) and handling client-side JavaScript hydration.
+* **Persistent Distributed Storage:** Transition local file and in-memory session caches to a cloud relational database (PostgreSQL via SQLAlchemy) and Amazon S3 for archival dataset storage.
+* **Asynchronous Message Broker:** Offload heavy concurrent multi-vendor crawling tasks onto a Celery/Redis task queue with WebSocket streaming progress feeds.
+* **Automated Price Alerts:** Implement user authentication and email notifications when a tracked product crosses a target price threshold.
