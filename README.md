@@ -133,13 +133,10 @@ Start Command: uvicorn main:app --host 0.0.0.0 --port $PORT
 
 Healthcheck Path: / (Supports both GET and HEAD requests)
 
-Future Enhancements & Technical Roadmap
-Residential Proxy & Anti-Bot Bypass Integration: Integrate specialized scraping proxy layers (e.g., ScraperAPI, ZenRows, or BrightData) with automated CAPTCHA-solving upstream. This will enable direct residential IP rotation, allowing live cloud extraction on Render without triggering Cloudflare, Akamai, or DataDome perimeter challenges.
+## Future Enhancements & Technical Roadmap
 
-Headless Browser Automation: Incorporate Playwright / Camoufox worker pools for executing vendor single-page applications (SPAs) and handling client-side JavaScript hydration.
-
-Persistent Distributed Storage: Transition local file and in-memory session caches to a cloud relational database (PostgreSQL via SQLAlchemy) and Amazon S3 for archival dataset storage.
-
-Asynchronous Message Broker: Offload heavy concurrent multi-vendor crawling tasks onto a Celery/Redis task queue with WebSocket streaming progress feeds.
-
-Automated Price Alerts: Implement user authentication and email notifications when a tracked product crosses a target price threshold.
+* **Residential Proxy & Anti-Bot Bypass Integration:** Integrate specialized scraping proxy layers (e.g., ScraperAPI, ZenRows, or BrightData) with automated CAPTCHA-solving upstream. This will enable direct residential IP rotation, allowing live cloud extraction on Render without triggering Cloudflare, Akamai, or DataDome perimeter challenges.
+* **Headless Browser Automation:** Incorporate Playwright / Camoufox worker pools for executing vendor single-page applications (SPAs) and handling client-side JavaScript hydration.
+* **Persistent Distributed Storage:** Transition local file and in-memory session caches to a cloud relational database (PostgreSQL via SQLAlchemy) and Amazon S3 for archival dataset storage.
+* **Asynchronous Message Broker:** Offload heavy concurrent multi-vendor crawling tasks onto a Celery/Redis task queue with WebSocket streaming progress feeds.
+* **Automated Price Alerts:** Implement user authentication and email notifications when a tracked product crosses a target price threshold.
