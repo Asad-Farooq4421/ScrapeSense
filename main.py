@@ -86,7 +86,7 @@ def bg_search_task(query: str):
         log_terminal(f"[ERROR] {str(exc)}")
         logger.error(f"Search failed: {exc}", exc_info=True)
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def dashboard(request: Request):
     return templates.TemplateResponse(request=request, name="index.html")
 
