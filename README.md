@@ -73,26 +73,27 @@ ScrapeSense Architecture Pipeline
 ---
 
 ## Project Structure
-ScrapeSense/
-├── main.py # FastAPI server, endpoints, and background job state
-├── requirements.txt # Production dependencies
-├── .gitignore # Ignored environments, logs, and artifacts
-├── README.md # System documentation
-├── scraper/
-│ ├── init.py # Module initialization
-│ ├── crawler.py # Multi-platform scraping coordinator & resilience logic
-│ ├── parser.py # DOM structure parsers for eBay, Amazon, and Alibaba
-│ ├── cleaner.py # Regex-based currency and rating normalization
-│ └── analyzer.py # Descriptive statistical modeling & metrics
-├── static/
-│ ├── css/
-│ │ └── style.css # "Deconstruct & Extract" Emerald styling
-│ └── js/
-│ └── app.js # Client UI state, Three.js engine, and Chart.js integration
-└── templates/
-└── index.html # Core glassmorphic operational dashboard
 
-text
+```text
+ScrapeSense/
+├── main.py                  # FastAPI server, endpoints, and background job state
+├── requirements.txt         # Production dependencies
+├── .gitignore               # Ignored environments, logs, and artifacts
+├── README.md                # System documentation
+├── scraper/
+│   ├── __init__.py          # Module initialization
+│   ├── crawler.py           # Multi-platform scraping coordinator & resilience logic
+│   ├── parser.py            # DOM structure parsers for eBay, Amazon, and Alibaba
+│   ├── cleaner.py           # Regex-based currency and rating normalization
+│   └── analyzer.py          # Descriptive statistical modeling & metrics
+├── static/
+│   ├── css/
+│   │   └── style.css        # "Deconstruct & Extract" Emerald styling
+│   └── js/
+│       └── app.js           # Client UI state, Three.js engine, and Chart.js integration
+└── templates/
+    └── index.html           # Core glassmorphic operational dashboard
+```
 
 ---
 
