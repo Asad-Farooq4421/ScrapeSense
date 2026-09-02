@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScrapeSense // Cross-Market Search Engine</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+</head>
+<body>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <canvas id="bg3d"></canvas>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand">
+        <div class="brand-badge"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="brand-text">
+          <h1>ScrapeSense</h1>
+          <p>Tri-Platform Extraction Engine (Amazon &bull; eBay &bull; Alibaba)</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btnExportCsv" class="btn btn-secondary"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+        <button id="btnExportExcel" class="btn btn-secondary"><i class="fa-solid fa-file-excel"></i> Export Excel</button>
+        <a href="/docs" target="_blank" class="btn btn-icon" title="API Docs"><i class="fa-solid fa-code"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <main class="dashboard-grid">
+
+      <!-- Live Search & Crawler Console -->
+      <section class="card glass-card control-console" data-tilt data-tilt-max="2" data-tilt-glare data-tilt-max-glare="0.05">
+        <div class="card-header">
+          <h2><i class="fa-solid fa-magnifying-glass"></i> Cross-Platform Product Discovery</h2>
+          <span id="badgeStatus" class="badge badge-idle">IDLE</span>
+        </div>
+        
+        <div class="console-body">
+          <form id="formSearch" class="search-hero">
+            <div class="search-input-wrapper">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="inputQuery" placeholder="Search any product across Amazon, eBay & Alibaba (e.g. Wireless Headphones, Gaming Mouse)..." required />
+              <button type="submit" id="btnSearch" class="btn btn-primary">
+                <span class="btn-text"><i class="fa-solid fa-bolt"></i> Scrape All 3 Stores</span>
+              </button>
+            </div>
+          </form>
+
+          <div class="vendor-badges">
+            <span class="vendor-tag"><i class="fa-brands fa-amazon"></i> Amazon</span>
+            <span class="vendor-tag"><i class="fa-brands fa-ebay"></i> eBay</span>
+            <span class="vendor-tag"><i class="fa-solid fa-boxes-packing"></i> Alibaba</span>
+          </div>
+
+          <div class="progress-box hidden" id="progressWrapper">
+            <div class="progress-meta">
+              <span id="lblProgressMsg">Dispatching crawler threads...</span>
+              <span id="lblProgressPct">0%</span>
+            </div>
+            <div class="progress-track">
+              <div id="progressBar" class="progress-fill" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="live-terminal">
+            <div class="terminal-header">
+              <span><i class="fa-solid fa-circle text-red"></i> <i class="fa-solid fa-circle text-yellow"></i> <i class="fa-solid fa-circle text-green"></i> Pipeline Execution Stream</span>
+              <button id="btnClearLogs" class="btn-text-only">Clear Output</button>
+            </div>
+            <div id="terminalBody" class="terminal-body">
+              <div class="log-entry">[READY] Engine standby. Enter a search query to pull data simultaneously.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KPI Metrics -->
+      <section class="metrics-grid">
+        <div class="metric-card glass-card" data-tilt data-tilt-max="5">
+          <div class="metric-icon"><i class="fa-solid fa-cart-flatbed"></i></div>
+          <div class="metric-data">
+            <span class="metric-label">Total Found</span>
+            <h3 id="statTotal">--</h3>
+          </div>
+        </div>
+        <div class="metric-card glass-card" data-tilt data-tilt-max="5">
+          <div class="metric-icon"><i class="fa-solid fa-tag"></i></div>
+          <div class="metric-data">
+            <span class="metric-label">Average Price</span>
+            <h3 id="statAvg">--</h3>
+          </div>
+        </div>
+        <div class="metric-card glass-card" data-tilt data-tilt-max="5">
+          <div class="metric-icon"><i class="fa-solid fa-arrow-down-wide-short"></i></div>
+          <div class="metric-data">
+            <span class="metric-label">Lowest Price</span>
+            <h3 id="statMin">--</h3>
+          </div>
+        </div>
+        <div class="metric-card glass-card" data-tilt data-tilt-max="5">
+          <div class="metric-icon"><i class="fa-solid fa-arrow-up-wide-short"></i></div>
+          <div class="metric-data">
+            <span class="metric-label">Highest Price</span>
+            <h3 id="statMax">--</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analytics Charts -->
+      <section class="charts-grid">
+        <div class="chart-card glass-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-chart-column"></i> Average Price by Store</h3>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chartPrice"></canvas>
+          </div>
+        </div>
+        <div class="chart-card glass-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-chart-pie"></i> Product Share by Store</h3>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chartShare"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Product Results Table -->
+      <section class="card glass-card table-section">
+        <div class="table-toolbar">
+          <h2><i class="fa-solid fa-list-check"></i> Compared Store Listings</h2>
+          <div class="table-filters">
+            <select id="selectSourceFilter">
+              <option value="">All Marketplaces</option>
+              <option value="Amazon">Amazon</option>
+              <option value="eBay">eBay</option>
+              <option value="Alibaba">Alibaba</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Store</th>
+                <th>Product Title</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Description</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr>
+                <td colspan="7" class="text-center py-4">No search performed yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="app-footer">
+      <p>ScrapeSense Multi-Vendor Comparison Engine &bull; Amazon, eBay, Alibaba &bull; FastAPI &bull; BeautifulSoup</p>
+    </footer>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
